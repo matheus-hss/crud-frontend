@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Product } from './product';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-product',
@@ -11,7 +12,7 @@ export class ProductComponent implements OnInit {
   product: Product;
   list: Product [];
 
-  constructor() {
+  constructor(private _productService: ProductService) {
     this.product = new Product();
     this.list = [];
    }
@@ -20,23 +21,20 @@ export class ProductComponent implements OnInit {
   }
 
   public save(): void {
-    let index = this.list.indexOf(this.product);
-
-    if(index == -1){
-      this.list.push(this.product);
-    }
-
-    this.list[index] = this.product;
+    this.list = this._productService.save(this.product, this.list);
     this.product = new Product();
   }
 
   public remove(product: Product): void {
-    let index = this.list.indexOf(product);
-    this.list.splice(index, 1);
+    this.list = this._productService.remove(product, this.list);
   }
 
-  public update(product: Product){
-    this.product = product;
+  public update(product: Product): void {
+    this.product = this._productService.update(product);
+  }
+
+  public clear(): void {
+    this.product = new Product();
   }
 
 }

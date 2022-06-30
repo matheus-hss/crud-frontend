@@ -1,4 +1,7 @@
-section, table, footer {
-    width: 500px;
+div, table {
     margin: auto;
+}
+
+.btn-danger {
+    margin: 5px;
 }
