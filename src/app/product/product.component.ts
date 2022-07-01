@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Product } from './product';
 import { ProductService } from './product.service';
@@ -8,7 +8,7 @@ import { ProductService } from './product.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent {
   product: Product;
   list: Product [];
 
@@ -16,9 +16,6 @@ export class ProductComponent implements OnInit {
     this.product = new Product();
     this.list = [];
    }
-
-  ngOnInit(): void {
-  }
 
   public save(): void {
     this.list = this._productService.save(this.product, this.list);

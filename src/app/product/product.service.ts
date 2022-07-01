@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Product } from './product';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProductService {
 
   constructor() { }
@@ -12,9 +10,7 @@ export class ProductService {
   public save(product: Product, list: Product[]): Product [] {
     let index = list.indexOf(product);
 
-    if(index == -1){
-      list.push(product);
-    }
+    if(index == -1) list.push(product);
 
     list[index] = product;
 

@@ -9,12 +9,12 @@
   </div>
   <div class="mb-3">
     <label class="form-label" for="description">Description</label>
-    <textarea class="form-control" id="description" cols="15" rows="5" [(ngModel)]="product.description"></textarea>
+    <textarea class="form-control" id="description" rows="5" [(ngModel)]="product.description"></textarea>
   </div>
-  <button class="btn btn-primary" (click)="save()" 
-        [disabled]="product.productName.trim() == '' || 
-                    product.productValue <= 0 || 
-                    product.description.trim() == ''">Save</button>
+  <button class="btn btn-primary" (click)="save()"
+      [valid]="product.productName" 
+      [validValue]="product.productValue"
+      [validDescription]="product.description">Save</button>
   <button class="btn btn-danger" (click)="clear()">Clear</button>
 </div>
 
@@ -31,9 +31,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of list">
-        <td> {{ product.productName }} </td>
-        <td> {{ product.productValue }} </td>
-        <td> {{ product.description }} </td>
+        <td> {{ product.productName | uppercase }} </td>
+        <td> {{ product.productValue | currency:'BRL':true }} </td>
+        <td> {{ product.description| uppercase }} </td>
         <td> <button class="btn btn-primary" (click)="remove(product)">  <i class="bi bi-trash"></i> </button> </td>
         <td> <button class="btn btn-primary" (click)="update(product)"> <i class="bi bi-pencil"></i> </button> </td>
       </tr>
