@@ -32,7 +32,7 @@
     <tbody>
       <tr *ngFor="let product of list">
         <td> {{ product.productName | uppercase }} </td>
-        <td> {{ product.productValue | currency:'BRL':true }} </td>
+        <td> {{ product.productValue | currency:'BRL':'symbol-narrow' }} </td>
         <td> {{ product.description| uppercase }} </td>
         <td> <button class="btn btn-primary" (click)="remove(product)">  <i class="bi bi-trash"></i> </button> </td>
         <td> <button class="btn btn-primary" (click)="update(product)"> <i class="bi bi-pencil"></i> </button> </td>
