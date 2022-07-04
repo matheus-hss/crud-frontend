@@ -1,0 +1,18 @@
+<div class="col-8">
+  <div class="mb-3">
+    <label for="product-name" class="form-label">Product Name</label>
+    <input type="text" class="form-control" id="product-name" [(ngModel)]="product.productName">
+  </div>
+  <div class="mb-3">
+    <label for="product-value" class="form-label">Product Value</label>
+    <input type="number" class="form-control" id="product-value" [(ngModel)]="product.productValue">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="description">Description</label>
+    <textarea class="form-control" id="description" rows="5" [(ngModel)]="product.description"></textarea>
+  </div>
+  <button class="btn btn-primary" (click)="save()" 
+    [valid]="product.productName" 
+    [validValue]="product.productValue"
+    [validDescription]="product.description">Save</button>
+</div>

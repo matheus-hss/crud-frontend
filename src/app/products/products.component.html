@@ -1,0 +1,29 @@
+<div class="row" style="margin: 50px">
+  <div class="col">
+    <div class="row col-5 mb-3">
+      <input #inputName class="form-control me-2" type="search" placeholder="Search" (keyup)="findByName()">
+    </div>
+    <div class="row">
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Products</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of list">
+            <td>{{ product.id }}</td>
+            <td>
+              <a [routerLink]="[product.id]">{{ product.productName }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-8">
+    <router-outlet></router-outlet>
+  </div>
+</div>

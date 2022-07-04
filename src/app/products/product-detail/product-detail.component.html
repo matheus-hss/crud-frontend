@@ -1,0 +1,29 @@
+<div class="container">
+  <h3>Product Detail</h3>
+</div>
+
+<div>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Value</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.productName | uppercase }}</td>
+        <td>{{ product.productValue | currency:'BRL':'symbol-narrow' }}</td>
+        <td>{{ product.description| uppercase }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="edit()">Edit</button>
+          <button class="btn btn-danger" (click)="remove()">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

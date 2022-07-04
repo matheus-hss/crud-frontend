@@ -5,17 +5,24 @@ import ptBr from '@angular/common/locales/pt';
 
 registerLocaleData(ptBr)
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ProductModule } from './product/product.module';
+import { HomeModule } from './home/home.module';
+import { FormModule } from './form/form.module';
+import { ProductsModule } from './products/products.module';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    ProductModule
+    HomeModule,
+    FormModule,
+    ProductsModule
   ],
   providers: [
     {
