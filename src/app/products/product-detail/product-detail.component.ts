@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
-import { Product } from '../product';
+import { Product } from '../../model/product';
 import { ProductsService } from '../products.service';
 
 @Component({
@@ -10,33 +9,36 @@ import { ProductsService } from '../products.service';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit, OnDestroy {
+export class ProductDetailComponent implements OnInit {
   product: Product;
-  private _subscription: Subscription
 
-  constructor(private _activatedRoute: ActivatedRoute,
-              private _productsService: ProductsService,
-              private _router: Router) {
-    this.product = new Product();
-    this._subscription = new Subscription();
-  }
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+    private _productsService: ProductsService) { this.product = new Product() }
 
   ngOnInit(): void {
-    this._subscription = this._activatedRoute.params.subscribe(param => {
-      let list = this._productsService.list();
-      for (let product of list) {
-        if (product.id == param['id']) this.product = product;
-      }
-    });
+    this._activatedRoute.params.subscribe({
+      next: (param:any) => {
+        this._productsService.findAll().subscribe({
+          next: (data:any) => {
+            let list: Array<Product> = data['content']
+            for(let product of list)
+              if(product.id == param['id']) this.product = product
+          }
+        })
+      },
+      error: (msg: any) => console.log(msg)
+    })
   }
 
-  ngOnDestroy(): void { this._subscription.unsubscribe(); }
+  edit(): void { this._router.navigate(['products', this.product.id, 'edit']); }
 
-  edit() { this._router.navigate(['products', this.product.id, 'edit']); }
-
-  remove() {
-    this._productsService.remove(this.product);
-    this._router.navigate(['products']);
+  remove(): void {
+    this._productsService.remove(this.product).subscribe({
+      next: (data:any) => window.alert('Deleted'),
+      error: (msg:any) => console.log(msg)
+    })
   }
 
 }

@@ -1,32 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Product } from './product';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { Product } from '../model/product';
 
 @Injectable()
 export class ProductsService {
-  private _products: Product[];
-  private _id: number;
+  private _url = '/api/product/'
 
-  constructor() { 
-    this._products = []; 
-    this._id = 0; 
+  constructor(private _httpClient: HttpClient) { }
+
+  save(product: Product): Observable<any> {
+    return this._httpClient.post(`${this._url}/lab/${product.lab.id}`, JSON.stringify(product), { headers: {'Content-Type': 'application/json'} })
   }
 
-  public save(product: Product): void {
-    let index = this._products.indexOf(product);
-
-    if(index == -1){
-      this._id++;
-      product.id = this._id;
-      this._products.push(product);
-    }
-    
-    this._products[index] = product;
+  remove(product: Product): Observable<any> {
+    return this._httpClient.delete(`${this._url}/${product.id}`)
   }
 
-  public remove(product: Product): void {
-    let index = this._products.indexOf(product);
-    if(index != -1) this._products.splice(index, 1);
+  update(product: Product): Observable<any> {
+    return this._httpClient.put(`${this._url}/${product.id}/lab/${product.lab.id}`, JSON.stringify(product), { headers: {'Content-Type': 'application/json'} })
   }
 
-  public list(): Product [] { return this._products; }
+  findAll(): Observable<any> { return this._httpClient.get(this._url) }
 }

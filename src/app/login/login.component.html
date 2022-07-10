@@ -1,0 +1,11 @@
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" class="m-3">
+    <div class="form-group col-3 mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" class="form-control" ngModel="adm@adm.com">
+    </div>
+    <div class="form-group col-3 mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" ngModel="123456">
+    </div>
+    <button type="submit" class="btn btn-success">Login <i class="bi bi-send"></i></button>
+</form>

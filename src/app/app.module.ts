@@ -9,9 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HomeModule } from './home/home.module';
-import { FormModule } from './form/form.module';
-import { ProductsModule } from './products/products.module';
-
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +19,7 @@ import { ProductsModule } from './products/products.module';
     AppRoutingModule,
     BrowserModule,
     HomeModule,
-    FormModule,
-    ProductsModule
+    LoginModule
   ],
   providers: [
     {

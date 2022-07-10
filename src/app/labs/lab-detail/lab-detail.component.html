@@ -1,0 +1,21 @@
+<div class="container col-5">
+    <div class="row p-2">
+      <h3>Lab Detail</h3>
+    </div>
+    <div class="row p-2">
+      <strong>Title</strong>
+      {{ lab.labName | uppercase }}
+    </div>
+    <div class="row p-2">
+      <strong>Email</strong>
+      {{ lab.email | uppercase }}
+    </div>
+    <div class="row p-2">
+        <strong>Telephone</strong>
+        {{ lab.tel }}
+    </div>
+    <div class="row p-2">
+      <button class="btn btn-warning mb-2" (click)="edit()">Edit</button>
+      <button class="btn btn-danger" (click)="remove()">Remove</button>
+    </div>
+  </div>

@@ -1,19 +1,24 @@
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar bg-dark" *ngIf="showMenu">
     <div class="container-fluid">
-
-        <a class="navbar-brand">LOGO</a>
-        
+        <a class="navbar-brand text-white">LOGO</a>
         <div class="container">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+                    <a routerLink="/home" routerLinkActive="active" class="nav-link text-white">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a routerLink="/products" routerLinkActive="active" class="nav-link">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/form" routerLinkActive="active" class="nav-link">Form</a>
-                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Register
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li>
+                        <a class="dropdown-item" routerLink="/labs">Lab</a>
+                    </li>
+                      <li>
+                        <a class="dropdown-item" routerLink="/products">Product</a>
+                    </li>
+                    </ul>
+                  </li>
             </ul>
         </div>
     </div>

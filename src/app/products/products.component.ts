@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
+import { Product } from '../model/product';
 import { ProductsService } from './products.service';
-import { Product } from './product';
 
 @Component({
   selector: 'app-products',
@@ -9,20 +9,25 @@ import { Product } from './product';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  list: Product[];
-  @ViewChild("inputName") name: ElementRef;
+  list = new Array<Product>()
 
-  constructor(private _productsService: ProductsService) { 
-    this.list = [];
-    this.name = new ElementRef('');
+  constructor(private _productsService: ProductsService) { }
+
+  ngOnInit(): void { 
+    this._productsService.findAll().subscribe({
+      next: (data:any) => this.list = data['content'],
+      error: (msg:any) => console.log(msg)
+    })
   }
 
-  ngOnInit(): void { this.list = this._productsService.list(); }
-
-  findByName(): void {
-    this.list = this._productsService.list()
-    .filter(p => p.productName.trim().toUpperCase().startsWith(
-      this.name.nativeElement.value.trim().toUpperCase()))
+  findByName(event: any): void { 
+    this._productsService.findAll().subscribe({
+      next: (data:any) => {
+        this.list = data['content'].filter((p: Product) => p.productName.trim().toUpperCase()
+          .startsWith(event.value.trim().toUpperCase()))
+      },
+      error: (msg:any) => console.log(msg)
+    })
   }
 
 }

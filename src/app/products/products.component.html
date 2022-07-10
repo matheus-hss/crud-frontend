@@ -1,25 +1,20 @@
-<div class="row" style="margin: 50px">
-  <div class="col">
-    <div class="row col-5 mb-3">
-      <input #inputName class="form-control me-2" type="search" placeholder="Search" (keyup)="findByName()">
+<div class="row m-4">
+  <div class="col-4">
+    <div class="row mb-3">
+      <div class="col">
+        <input class="form-control" type="search" placeholder="Search by product" 
+          (keyup)="findByName($event.target)">
+      </div>
+      <div class="col">
+        <a class="text-success fs-4" routerLink="register" title="Register a new product">
+          <i class="bi bi-plus-square-fill"></i>
+        </a>
+      </div>
     </div>
-    <div class="row">
-      <table class="table">
-        <thead class="table-dark">
-          <tr>
-            <th>#</th>
-            <th>Products</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let product of list">
-            <td>{{ product.id }}</td>
-            <td>
-              <a [routerLink]="[product.id]">{{ product.productName }}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row col-7 border border-secondary" *ngFor="let product of list">
+      <div class="col p-2">
+        <a [routerLink]="[product.id]">{{ product.productName | uppercase }}</a>
+      </div>
     </div>
   </div>
 

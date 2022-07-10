@@ -1,0 +1,24 @@
+<div class="row m-4">
+    <div class="col-4">
+      <div class="row mb-3">
+        <div class="col">
+          <input type="search" placeholder="Search by lab" (keyup)="findByName($event.target)"
+            class="form-control">
+        </div>
+        <div class="col">
+          <a routerLink="register" class="text-success fs-4">
+            <i class="bi bi-plus-square-fill"></i>
+          </a>
+        </div>
+      </div>
+      <div *ngFor="let lab of list" class="row col-7 border border-secondary">
+        <div class="col p-2">
+          <a [routerLink]="[lab.id]">{{ lab.labName | uppercase }}</a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

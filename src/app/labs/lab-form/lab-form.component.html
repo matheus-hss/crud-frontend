@@ -1,0 +1,140 @@
+<form #labForm="ngForm" (ngSubmit)="onSubmit(labForm)" class="col-8 m-auto" novalidate>
+    <div class="form-group mb-3">
+        <label for="labName" class="form-label">Lab Name</label>
+        <input #labName="ngModel" type="text" name="labName" id="labName" 
+            [(ngModel)]="lab.labName" required maxlength="30" 
+            [class.is-invalid]="labName.invalid && labName.touched"
+            [class.is-valid]="labName.valid && labName.touched"
+            (input)="onInput()"
+            class="form-control">
+        <div *ngIf="labName.errors?.['required'] && labName.touched"
+            class="invalid-feedback">
+            Lab Name is required.
+        </div>
+        <div class="valid-feedback">
+            It's ok.
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="form-group col-8">
+            <label for="email" class="form-label">Email</label>
+            <input #email="ngModel" type="email" name="email" id="email" 
+                [(ngModel)]="lab.email" required maxlength="30" email  
+                [class.is-invalid]="email.invalid && email.touched"
+                [class.is-valid]="email.valid && email.touched"
+                (input)="onInput()"
+                class="form-control">
+            <div *ngIf="email.errors?.['required'] && email.touched"
+                class="invalid-feedback">
+                Email is required.
+            </div>
+            <div *ngIf="email.errors?.['email'] && email.touched"
+                class="invalid-feedback">
+                Email incorrect.
+            </div>
+            <div class="valid-feedback">
+                It's ok.
+            </div>
+        </div>
+        <div class="form-group col-4">
+            <label for="telephone" class="form-label">Telephone</label>
+            <input #telephone="ngModel" type="tel" name="tel" id="telephone" 
+                [(ngModel)]="lab.tel" required minlength="10" maxlength="11" pattern="[0-9]{2}[0-9]{4,5}[0-9]{4}"
+                [class.is-invalid]="telephone.invalid && telephone.touched"
+                [class.is-valid]="telephone.valid && telephone.touched"
+                (input)="onInput()"
+                class="form-control">
+            <div *ngIf="telephone.errors?.['required'] && telephone.touched"
+                class="invalid-feedback">
+                Telephone is required.
+            </div>
+            <div *ngIf="telephone.errors?.['minlength'] && telephone.touched" 
+                class="invalid-feedback">
+                Telephone must be at least 8 characters.
+            </div>
+            <div *ngIf="telephone.errors?.['pattern'] && telephone.touched" 
+                class="invalid-feedback">
+                Incorrect format. Ex1:1798765432 Ex2:17987654321
+            </div>
+            <div class="valid-feedback">
+                It's ok.
+            </div>
+        </div>
+    </div>
+    <div ngModelGroup="address">
+        <div class="row mb-3">
+            <div class="form-group col-3">
+                <label for="zipCode" class="form-label">Zip Code</label>
+                <input #zipCode="ngModel" type="text" name="zipCode" id="zipCode" 
+                    [(ngModel)]="lab.address.zipCode" required minlength="8" maxlength="8"
+                    [class.is-invalid]="zipCode.invalid && zipCode.touched"
+                    [class.is-valid]="zipCode.valid && zipCode.touched"
+                    class="form-control"
+                    (input)="onInput()"
+                    (blur)="searchByZipCode($event.target, labForm)">
+                <div *ngIf="zipCode.errors?.['required'] && zipCode.touched" 
+                    class="invalid-feedback">
+                    Zip Code is required.
+                </div>
+                <div *ngIf="zipCode.errors?.['minlength']" class="invalid-feedback">
+                    Zip Code must be 8 characters.
+                </div>
+                <div class="valid-feedback">
+                    It's ok.
+                </div>
+            </div>
+            <div class="form-group col-6">
+                <label for="street" class="form-label">Street</label>
+                <input #street="ngModel" type="text" name="street" id="street" 
+                    [(ngModel)]="lab.address.street" readonly
+                    class="form-control">
+            </div>
+            <div class="form-group col-3">
+                <label for="number" class="form-label">Number</label>
+                <input #number="ngModel" type="number" name="num" id="number" 
+                    [(ngModel)]="lab.address.num" required min="1" max="99999" 
+                    [class.is-invalid]="number.invalid && number.touched"
+                    [class.is-valid]="number.valid && number.touched"
+                    (input)="onInput()"
+                    class="form-control">
+                <div *ngIf="number.errors?.['required'] && number.touched" 
+                    class="invalid-feedback">
+                    Number is required.
+                </div>
+                <div *ngIf="number.errors?.['min'] && number.touched" 
+                    class="invalid-feedback">
+                    Number must be at least 1.
+                </div>
+                <div *ngIf="number.errors?.['max'] && number.touched" 
+                    class="invalid-feedback">
+                    Number must be less than 99999.
+                </div>
+                <div class="valid-feedback">
+                    It's ok.
+                </div>
+            </div>     
+        </div>
+        <div class="row mb-3">
+            <div class="form-group col-5">
+                <label for="neighborhood" class="form-label">Neighborhood</label>
+                <input #neighborhood="ngModel" type="text" name="neighborhood" id="neighborhood" 
+                    [(ngModel)]="lab.address.neighborhood" readonly
+                    class="form-control">
+            </div>
+            <div class="form-group col-5">
+                <label for="city" class="form-label">City</label>
+                <input #city="ngModel" type="text" name="city" id="city" 
+                    [(ngModel)]="lab.address.city" readonly
+                    class="form-control">
+            </div>
+            <div class="form-group col-2">
+                <label for="state" class="form-label">State</label>
+                <input #state="ngModel" type="text" name="state" id="state" 
+                    [(ngModel)]="lab.address.state" readonly
+                    class="form-control">
+            </div>
+        </div>
+    </div>
+    <button type="submit" [disabled]="labForm.invalid" class="btn btn-primary">Save</button>
+    <button type="reset" (click)="clear(labForm)" class="btn btn-danger m-1">Clear</button>
+</form>

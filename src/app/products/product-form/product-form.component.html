@@ -1,0 +1,65 @@
+<form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" class="col-8 m-auto" novalidate>
+    <div class="form-group mb-3">
+        <label for="productName" class="form-label">Product Name</label>
+        <input #productName="ngModel" type="text" name="productName" id="productName" 
+            [(ngModel)]="product.productName" required maxlength="30" 
+            [class.is-invalid]="productName.invalid && productName.touched"
+            [class.is-valid]="productName.valid && productName.touched"
+            (input)="onInput()"
+            class="form-control">
+        <div *ngIf="productName.errors?.['required'] && productName.touched" 
+            class="invalid-feedback" >
+            Name is required.
+        </div>
+        <div class="valid-feedback">
+            It's ok.
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        <label for="productValue" class="form-label">Product Value</label>
+        <input #productValue="ngModel" type="number" name="productValue" id="productValue" 
+            [(ngModel)]="product.productValue" required min="1" max="99999" 
+            [class.is-invalid]="productValue.invalid && productValue.touched"
+            [class.is-valid]="productValue.valid && productValue.touched"
+            (input)="onInput()"
+            class="form-control">
+        <div *ngIf="productValue.errors?.['required'] && productValue.touched" 
+            class="invalid-feedback">
+            Product Value is required.
+        </div>
+        <div *ngIf="productValue.errors?.['min'] && productValue.touched"
+            class="invalid-feedback">
+            Product Value must be at least 1.
+        </div>
+        <div *ngIf="productValue.errors?.['max'] && productValue.touched"
+        class="invalid-feedback">
+            Product Value must be until 99999.
+        </div>
+        <div class="valid-feedback">
+            It's ok.
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea #description="ngModel" id="description" name="description" 
+            [(ngModel)]="product.description" rows="5" required maxlength="100" 
+            [class.is-invalid]="description.invalid && description.touched"
+            [class.is-valid]="description.valid && description.touched"
+            (input)="onInput()"
+            class="form-control"></textarea>
+        <div *ngIf="description.errors?.['required'] && description.touched"
+            class="invalid-feedback">
+            Description is required.
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        <select name="lab" id="lab" 
+            [(ngModel)]="product.lab.id" required
+            (input)="onInput()"
+            class="form-select">
+            <option *ngFor="let lab of list" [value]="lab.id">{{ lab.labName | uppercase }}</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Save</button>
+    <button type="reset" (click)="clear(productForm)" class="btn btn-danger m-1">Clear</button>
+</form>

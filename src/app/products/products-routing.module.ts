@@ -3,19 +3,21 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProductsComponent } from './products.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { FormComponent } from '../form/form.component';
+import { ProductFormComponent } from './product-form/product-form.component';
+import { FormGuardService } from '../guards/form-guard.service';
 
 const routes: Routes = [
-  { path: 'products', component: ProductsComponent, 
+  { path: '', component: ProductsComponent,
     children: [
+      { path: 'register', component: ProductFormComponent, canDeactivate: [FormGuardService]},
       { path: ':id', component: ProductDetailComponent },
-      { path: ':id/edit', component: FormComponent }
+      { path: ':id/edit', component: ProductFormComponent, canDeactivate: [FormGuardService] }
     ]
   }
 ]
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class ProductsRoutingModule { }
